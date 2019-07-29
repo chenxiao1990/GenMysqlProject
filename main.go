@@ -31,7 +31,7 @@ func init() {
 		return "GORM GIN API generator for Mysql"
 	}
 	goopt.Version = "0.0.1"
-	goopt.Summary = `.\GenMysqlProject.exe --ipport "192.168.0.86:3306" --dbname "cx" --user "root" --pass "12345678" --outname "mypro" `
+	goopt.Summary = `GenMysqlProject --ipport "192.168.0.86:3306" --dbname "cx" --user "root" --pass "12345678" --outname "mypro" `
 
 	//Parse options
 	goopt.Parse(nil)
