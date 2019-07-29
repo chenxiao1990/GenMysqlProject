@@ -5,18 +5,32 @@
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
++ 下载编译
+
+```
+git clone git@gitee.com:290746987/GenMysqlProject.git
+进入GenMysqlProject
+go build
+```
+
++ go get 直接安装
+
+go get -u gitee.com/290746987/GenMysqlProject
+
 
 #### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
++ 使用 GenMysqlProject -h 获取说明
++ 命令 GenMysqlProject --ipport "192.168.0.86:3306" --dbname "cx" --user "root" --pass "12345678" --outname "myproject" 
+
 
 
 #### 软件架构
+
++ config
+
+配置相关的信息在config.json中，项目运行时config.json放在同目录下./config/config.json
+
 + api
 
 对外提供http接口服务
