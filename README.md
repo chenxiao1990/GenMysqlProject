@@ -3,10 +3,6 @@
 #### 介绍
 通过mysql数据表初始化 curd项目 。  使用 gin  gorm
 
-#### 软件架构
-软件架构说明
-
-
 #### 安装教程
 
 1. xxxx
@@ -19,19 +15,25 @@
 2. xxxx
 3. xxxx
 
-#### 参与贡献
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+#### 软件架构
++ api
+对外提供http接口服务
+api解析service层需要的参数，调用service服务
+
++ service
+对api层提供服务
+定义服务的参数struct，返回struct
+service可以调用dao层的接口对数据库进行操作，但是不可以直接调用操作数据库
+多数情况service层是直接调用一个dao层进行返回，也可以进行多个表数据之间的计算整合等操作。
+
++ dao
+对service层提供数据库操作接口
+可以提供基础的增删改查，如果联合查询，那么接口应该定义在主表的dao文件中
+
++ model
+数据库表结构
+提供gorm的自动创建表功能
 
 
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+ 
