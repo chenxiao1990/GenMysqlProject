@@ -1,10 +1,10 @@
 package main
 
 import (
-	"GenMysqlProject/ProjectTemplate/config"
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/config"
 	"github.com/droundy/goopt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jimsmart/schema"
