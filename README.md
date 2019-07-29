@@ -1,7 +1,12 @@
 # GenMysqlProject
 
 #### 介绍
-通过mysql数据表初始化 curd项目 。  使用 gin  gorm
+通过mysql数据表初始化各个表的curd功能，包含api、service、dao、model模块 。 
+
+api使用gin框架提供对外http接口
+
+mysql数据库访问使用gorm框架
+
 
 #### 安装教程
 
@@ -15,7 +20,11 @@ go build
 
 + go get 直接安装
 
+```
 go get -u gitee.com/290746987/GenMysqlProject
+还是需要把模板文件夹下载下来, 模板文件夹是ProjectTemplate
+在ProjectTemplate的同目录执行 GenMysqlProject 命令
+```
 
 
 #### 使用说明
@@ -53,5 +62,11 @@ service可以调用dao层的接口对数据库进行操作，但是不可以直�
 数据库表结构
 提供gorm的自动创建表功能
 
+
+#### 注意事项
+
++ 表中如果无id字段，那么要删掉dao层中相关使用id的操作
++ 如果有两个表，表名是 something, somethings 那么需要手动处理一下，会有两个Something结构生成
++ 主流的字段格式已解析，可能会有漏掉的，后边会根据反馈进行修改
 
  
