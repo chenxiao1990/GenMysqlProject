@@ -1,5 +1,7 @@
 package api
 
+var ApiTemplate = `
+package api
 import (
 	"{{.ProjectName}}/service"
 	"github.com/gin-gonic/gin"
@@ -109,3 +111,5 @@ func {{.StructName}}Select(c *gin.Context) {
 	c.JSON(http.StatusOK, reply)
 	return
 }
+
+`

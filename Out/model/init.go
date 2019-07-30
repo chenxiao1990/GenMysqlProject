@@ -1,5 +1,5 @@
-package model
 
+package model
 import (
 	"Out/config"
 	"github.com/jinzhu/gorm"
@@ -39,3 +39,4 @@ func linkdb() (bool, *gorm.DB) {
 	tmpDB.DB().SetConnMaxLifetime(time.Second * 60)
 	return true, tmpDB
 }
+

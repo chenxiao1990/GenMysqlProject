@@ -4,12 +4,16 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/api"
 	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/config"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/dao"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/model"
+	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/service"
 	"github.com/droundy/goopt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jimsmart/schema"
 	"github.com/jinzhu/inflection"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -56,15 +60,20 @@ func main() {
 		ProjectName: *outProjectName,
 	}
 
-	fromdir := curdir + "/ProjectTemplate"
 	todir := curdir + "/" + *outProjectName
 
 	// main文件
-	basefile(fromdir+"/main.go", todir+"/main.go", base)
+	basestr(ProjectTemplate.MainTemplate, todir+"/main.go", base)
 	// dockerfile
-	basefile(fromdir+"/Dockerfile", todir+"/Dockerfile", base)
+	basestr(
+		`# 使用docker打包
+FROM alpine
+COPY ./{{.ProjectName}} /usr/bin/{{.ProjectName}}
+ENTRYPOINT ["{{.ProjectName}}"]`,
+		todir+"/Dockerfile",
+		base)
 	// config
-	copyfile(fromdir+"/config/config.go", todir+"/config/config.go")
+	copytofile(config.Configstr, todir+"/config/config.go")
 	config.GConf.ServerPort = 80
 	config.GConf.OutLog = false
 	config.GConf.Dbipport = *dbIPPort
@@ -81,7 +90,7 @@ func main() {
 	// 搞model文件夹内的
 	var tables = make([]string, 0)
 	{
-		basefile(fromdir+"/model/init.go", todir+"/model/init.go", base)
+		basestr(model.InitTemplate, todir+"/model/init.go", base)
 		// 获取所有数据库表
 		dbstr := *dbUser + ":" + *dbPass + "@tcp(" + *dbIPPort + ")/" + *dbName + "?charset=utf8"
 		var db, err = sql.Open("mysql", dbstr)
@@ -114,7 +123,7 @@ func main() {
 				TableName:  tableName,
 				Fields:     modelInfo.Fields,
 			}
-			basefile(fromdir+"/model/table.go", todir+"/model/"+tableName+"Model.go", base)
+			basestr(model.TableTemplate, todir+"/model/"+tableName+"Model.go", base)
 		}
 	}
 
@@ -145,7 +154,7 @@ func main() {
 				FieldsCreate: modelInfo.Fields, //这里应该去掉主键，但是懒得弄了
 				Fields:       modelInfo.Fields,
 			}
-			basefile(fromdir+"/service/service.go", todir+"/service/"+tableName+"Service.go", base)
+			basestr(service.ServiceTemplate, todir+"/service/"+tableName+"Service.go", base)
 		}
 	}
 
@@ -170,14 +179,14 @@ func main() {
 				ProjectName: *outProjectName,
 				StructName:  structName,
 			}
-			basefile(fromdir+"/dao/dao.go", todir+"/dao/"+tableName+"Dao.go", base)
+			basestr(dao.DapTemplate, todir+"/dao/"+tableName+"Dao.go", base)
 		}
 	}
 	// 搞api文件夹内的
 	{
-		basefile(fromdir+"/api/apiInit.go", todir+"/api/apiInit.go", base)
-		copyfile(fromdir+"/api/apiReply.go", todir+"/api/apiReply.go")
-		copyfile(fromdir+"/api/baseApi.go", todir+"/api/baseApi.go")
+		basestr(api.ApiInitTemplate, todir+"/api/apiInit.go", base)
+		copytofile(api.ApiReplystr, todir+"/api/apiReply.go")
+		copytofile(api.ApiBasestr, todir+"/api/baseApi.go")
 
 		dbstr := *dbUser + ":" + *dbPass + "@tcp(" + *dbIPPort + ")/" + *dbName + "?charset=utf8"
 		var db, err = sql.Open("mysql", dbstr)
@@ -200,15 +209,15 @@ func main() {
 				StructNameLow: strings.ToLower(structName),
 				StructName:    structName,
 			}
-			basefile(fromdir+"/api/api.go", todir+"/api/"+tableName+"Api.go", base)
+			basestr(api.ApiTemplate, todir+"/api/"+tableName+"Api.go", base)
 		}
 	}
 }
 
 // copyfile
-func copyfile(frompath string, topath string) {
+func copytofile(filestr string, topath string) {
 
-	bb, _ := ioutil.ReadFile(frompath)
+	bb := []byte(filestr)
 
 	todir := filepath.Dir(topath)
 	os.MkdirAll(todir, 0666)
@@ -218,9 +227,9 @@ func copyfile(frompath string, topath string) {
 }
 
 // 基础文件拷贝
-func basefile(frompath string, topath string, base interface{}) {
+func basestr(basestr string, topath string, base interface{}) {
 
-	tmpl, err := template.ParseFiles(frompath) //建立一个模板
+	tmpl, err := template.New("base").Parse(basestr) //建立一个模板
 	if err != nil {
 		fmt.Println(err)
 		return

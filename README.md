@@ -10,23 +10,20 @@ mysql数据库访问使用gorm框架
 
 #### 安装教程
 
-+ 下载编译
-
-```
-git clone git@gitee.com:290746987/GenMysqlProject.git
-进入GenMysqlProject
-go build
-```
-
-+ go get 直接安装
+ 
++ 第一种方法：go get 直接安装
 
 ```
 go get -u gitee.com/290746987/GenMysqlProject
-还是需要把模板文件夹下载下来, 模板文件夹是ProjectTemplate
-在ProjectTemplate的同目录执行 GenMysqlProject 命令
 ```
 
++ 第二种方法：下载源码编译
 
+```
+git clone git@gitee.com:290746987/GenMysqlProject.git
+```
+
+ 
 #### 使用说明
 
 + 使用 GenMysqlProject -h 获取说明

@@ -1,5 +1,8 @@
 package service
 
+var ServiceTemplate = `
+
+package service
 import (
 	"{{.ProjectName}}/dao"
 	"{{.ProjectName}}/model"
@@ -42,7 +45,7 @@ func (p *{{.StructName}}Create) Create() (*{{.StructName}}CreateBack, error) {
 
 // {{.StructName}}Delete  服务：删除   
 type {{.StructName}}Delete struct {
-	ID int `json:"id" binding:"required"`
+	ID int "json:\"id\" binding:\"required\""
 }
 
 // Delete 创建
@@ -53,7 +56,7 @@ func (p *{{.StructName}}Delete) Delete() error {
 
 // {{.StructName}}Select  服务：查询
 type {{.StructName}}Select struct {
-	ID int `json:"id" binding:"required"`
+	ID int "json:\"id\" binding:\"required\""
 }
 
 // {{.StructName}}SelectBack  返回参数
@@ -79,8 +82,8 @@ func (p *{{.StructName}}Select) Select() (*{{.StructName}}SelectBack, error) {
 
 // {{.StructName}}Update  服务：更新
 type {{.StructName}}Update struct {
-	ID    int                    `json:"id" binding:"required"`
-	Param map[string]interface{} `json:"param" binding:"required"`
+	ID    int                    "json:\"id\" binding:\"required\""
+	Param map[string]interface{} "json:\"param\" binding:\"required\""
 }
 
 // {{.StructName}}UpdateBack  返回参数
@@ -102,3 +105,5 @@ func (p *{{.StructName}}Update) Update() (*{{.StructName}}UpdateBack, error) {
 	json.Unmarshal(tmpbb, &back)
 	return &back, nil
 }
+
+`

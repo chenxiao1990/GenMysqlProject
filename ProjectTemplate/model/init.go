@@ -1,5 +1,7 @@
 package model
 
+var InitTemplate = `
+package model
 import (
 	"{{.ProjectName}}/config"
 	"github.com/jinzhu/gorm"
@@ -39,3 +41,5 @@ func linkdb() (bool, *gorm.DB) {
 	tmpDB.DB().SetConnMaxLifetime(time.Second * 60)
 	return true, tmpDB
 }
+
+`

@@ -1,5 +1,5 @@
+
 package api
-  
 import (
 	"Out/config"
 	"fmt"
@@ -56,3 +56,4 @@ func initgin() *gin.Engine{
 	}()
 	return tmpGRouter
 }
+

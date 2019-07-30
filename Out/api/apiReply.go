@@ -1,10 +1,10 @@
-package api
 
+package api
 // Reply api的回复结构
 type Reply struct {
-	Code    int         `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Code    int         "json:\"code\""
+	Message string      "json:\"message\""
+	Data    interface{} "json:\"data\""
 }
 
 // NewReplyOk 默认的正确回复
@@ -24,3 +24,4 @@ func NewReplyError(msg string) *Reply {
 		Data:    make([]struct{}, 0),
 	}
 }
+

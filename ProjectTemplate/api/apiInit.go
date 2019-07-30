@@ -1,5 +1,7 @@
 package api
-  
+
+var ApiInitTemplate = `
+package api
 import (
 	"{{.ProjectName}}/config"
 	"fmt"
@@ -56,3 +58,5 @@ func initgin() *gin.Engine{
 	}()
 	return tmpGRouter
 }
+
+`

@@ -1,5 +1,5 @@
-package config
 
+package config
 import (
 	"bytes"
 	"encoding/json"
@@ -34,3 +34,4 @@ func init() {
 		fmt.Println("读取配置文件成功:", fmt.Sprintf("%+v", GConf))
 	}
 }
+

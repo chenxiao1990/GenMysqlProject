@@ -1,5 +1,7 @@
 package dao
 
+var DapTemplate = `
+package dao
 import (
 	"{{.ProjectName}}/model"
 )
@@ -49,3 +51,4 @@ func (*{{.StructName}}Dao) Update{{.StructName}}(id int, update map[string]inter
 	}
 	return &m, nil
 }
+`

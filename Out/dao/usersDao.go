@@ -1,5 +1,5 @@
-package dao
 
+package dao
 import (
 	"Out/model"
 )

@@ -1,5 +1,6 @@
-package model
 
+
+package model
 import (
 	"log"
 	"time"
@@ -33,3 +34,4 @@ func init() {
 		log.Println("自动迁移错误:", er)
 	}
 }
+

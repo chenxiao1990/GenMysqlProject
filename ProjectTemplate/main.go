@@ -1,3 +1,6 @@
+package ProjectTemplate
+
+var MainTemplate = `
 package main
 
 import (
@@ -39,3 +42,5 @@ func main() {
 
 	select {}
 }
+
+`

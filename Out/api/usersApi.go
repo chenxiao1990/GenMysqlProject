@@ -1,5 +1,5 @@
-package api
 
+package api
 import (
 	"Out/service"
 	"github.com/gin-gonic/gin"
@@ -109,3 +109,4 @@ func UserSelect(c *gin.Context) {
 	c.JSON(http.StatusOK, reply)
 	return
 }
+

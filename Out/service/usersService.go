@@ -1,5 +1,6 @@
-package service
 
+
+package service
 import (
 	"Out/dao"
 	"Out/model"
@@ -52,7 +53,7 @@ func (p *UserCreate) Create() (*UserCreateBack, error) {
 
 // UserDelete  服务：删除   
 type UserDelete struct {
-	ID int `json:"id" binding:"required"`
+	ID int "json:\"id\" binding:\"required\""
 }
 
 // Delete 创建
@@ -63,7 +64,7 @@ func (p *UserDelete) Delete() error {
 
 // UserSelect  服务：查询
 type UserSelect struct {
-	ID int `json:"id" binding:"required"`
+	ID int "json:\"id\" binding:\"required\""
 }
 
 // UserSelectBack  返回参数
@@ -94,8 +95,8 @@ func (p *UserSelect) Select() (*UserSelectBack, error) {
 
 // UserUpdate  服务：更新
 type UserUpdate struct {
-	ID    int                    `json:"id" binding:"required"`
-	Param map[string]interface{} `json:"param" binding:"required"`
+	ID    int                    "json:\"id\" binding:\"required\""
+	Param map[string]interface{} "json:\"param\" binding:\"required\""
 }
 
 // UserUpdateBack  返回参数
@@ -122,3 +123,4 @@ func (p *UserUpdate) Update() (*UserUpdateBack, error) {
 	json.Unmarshal(tmpbb, &back)
 	return &back, nil
 }
+
