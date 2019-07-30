@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func init() {
-	groupgo := GRouter.Group("/go")
+func userInit(groupgo *gin.RouterGroup) {
+	 
 	// 所有api的开头 都加上/go  例如 /go/user/create
 	groupgo.POST("/user/create", UserCreate)
 	groupgo.POST("/user/delete", UserDelete)
@@ -109,4 +109,6 @@ func UserSelect(c *gin.Context) {
 	c.JSON(http.StatusOK, reply)
 	return
 }
+
+
 
