@@ -14,7 +14,7 @@ var (
 type User struct {
     ID int `gorm:"column:id;type:int(11);primary_key;AUTO_INCREMENT;" json:"id"`
     UID int `gorm:"column:uid;type:int(11);" json:"uid"`
-    Name string `gorm:"column:name;type:varchar(255);index:idx_name_code;" json:"name"`
+    Name string `gorm:"column:name;type:varchar(255);unique_index:idx_name_code;" json:"name"`
     Phone string `gorm:"column:phone;type:text;" json:"phone"`
     Pass string `gorm:"column:pass;type:varchar(255);" json:"pass"`
     Status int `gorm:"column:status;type:int(11);" json:"status"`

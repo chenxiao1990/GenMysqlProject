@@ -48,7 +48,11 @@ func init(){
 	groupgo := GRouter.Group("/go")
 	// 使用跨域中间件允许跨域
 	groupgo.Use(Cors())
+
+	// 加载各个router
 	initrouter(groupgo)
+
+	
 	//启动服务
 	go func() {
 		if err := GRouter.Run(fmt.Sprintf(":%d", config.GConf.ServerPort)); err != nil {
@@ -57,6 +61,8 @@ func init(){
 	}()
 	 
 }
+
+// 加载各个router
 func initrouter(groupgo *gin.RouterGroup) {
 	baseInit(groupgo)
 	userInit(groupgo)

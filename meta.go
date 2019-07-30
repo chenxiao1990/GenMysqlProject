@@ -161,10 +161,10 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 				}
 				//判断是不是索引
 				if len(words) >= 3 && words[0] == "KEY" && words[2] == "(`"+key+"`)" {
-					suoyin = words[1][1 : len(words[1])-1]
+					suoyin = "index:" + words[1][1:len(words[1])-1]
 				}
 				if len(words) >= 4 && words[0] == "UNIQUE" && words[1] == "KEY" && words[3] == "(`"+key+"`)" {
-					suoyin = words[2][1 : len(words[2])-1]
+					suoyin = "unique_index:" + words[2][1:len(words[2])-1]
 				}
 				//判断是不是自增
 				if words[0] == "`"+key+"`" && words[len(words)-1] == "AUTO_INCREMENT" {
@@ -182,7 +182,7 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 				gormstr += ";primary_key"
 			}
 			if suoyin != "" {
-				gormstr += fmt.Sprintf(";index:%s", suoyin)
+				gormstr += fmt.Sprintf(";%s", suoyin)
 			}
 			if zizeng {
 				gormstr += ";AUTO_INCREMENT"
