@@ -8,9 +8,8 @@ import (
 )
 
 // 加载路由
-func init() {
-	groupgo := GRouter.Group("/go")
-
+func baseInit(groupgo *gin.RouterGroup) {
+	  
 	// 所有api的开头 都加上/go  例如 /go/ping
 	groupgo.GET("ping", Ping)
 

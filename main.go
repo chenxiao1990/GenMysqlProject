@@ -184,7 +184,7 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 	}
 	// 搞api文件夹内的
 	{
-		basestr(api.ApiInitTemplate, todir+"/api/apiInit.go", base)
+
 		copytofile(api.ApiReplystr, todir+"/api/apiReply.go")
 		copytofile(api.ApiBasestr, todir+"/api/baseApi.go")
 
@@ -196,6 +196,7 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 		}
 		defer db.Close()
 		// generate go files for each table
+		var initfuncs = make([]string, 0)
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
 			structName = inflection.Singular(structName)
@@ -210,7 +211,17 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 				StructName:    structName,
 			}
 			basestr(api.ApiTemplate, todir+"/api/"+tableName+"Api.go", base)
+			initfuncs = append(initfuncs, fmt.Sprintf("%sInit(groupgo)", strings.ToLower(structName)))
 		}
+
+		var apiinit = struct {
+			ProjectName string
+			Inits       []string
+		}{
+			ProjectName: *outProjectName,
+			Inits:       initfuncs,
+		}
+		basestr(api.ApiInitTemplate, todir+"/api/apiInit.go", apiinit)
 	}
 }
 
