@@ -69,6 +69,7 @@ func main() {
 		`# 使用docker打包
 FROM alpine
 COPY ./{{.ProjectName}} /usr/bin/{{.ProjectName}}
+COPY ./config/config.json /usr/bin/config/config.json
 ENTRYPOINT ["{{.ProjectName}}"]`,
 		todir+"/Dockerfile",
 		base)
