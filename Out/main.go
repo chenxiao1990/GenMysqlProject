@@ -2,7 +2,7 @@
 package main
 
 import (
-	_ "Out/api"
+	"Out/api"
 	"Out/config"
 	_ "Out/dao"
 	"Out/model"
@@ -20,6 +20,8 @@ func main() {
 	configfile := GCurDir + "/config/config.json"
 	config.Loadconfig(configfile)
 
+	// 初始化路由
+	api.GinInit()
 	//连接数据库
 	model.LinkDB()
 

@@ -18,7 +18,7 @@ func hartInit(groupgo *gin.RouterGroup) {
 // HartCreate ...
 func HartCreate(c *gin.Context) {
 
-	var param service.HartCreate
+	var param service.HartCreateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -26,8 +26,8 @@ func HartCreate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Create()
+	ser := &service.HartService{}
+	back, err := ser.Create(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -42,7 +42,7 @@ func HartCreate(c *gin.Context) {
 // HartDelete ...
 func HartDelete(c *gin.Context) {
 
-	var param service.HartDelete
+	var param service.HartDeleteParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -50,8 +50,8 @@ func HartDelete(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	err = param.Delete()
+	ser := &service.HartService{}
+	err = ser.Delete(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -65,7 +65,7 @@ func HartDelete(c *gin.Context) {
 // HartUpdate ...
 func HartUpdate(c *gin.Context) {
 
-	var param service.HartUpdate
+	var param service.HartUpdateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -73,8 +73,8 @@ func HartUpdate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Update()
+	ser := &service.HartService{}
+	back, err := ser.Update(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -89,7 +89,7 @@ func HartUpdate(c *gin.Context) {
 // HartSelect ...
 func HartSelect(c *gin.Context) {
 
-	var param service.HartSelect
+	var param service.HartSelectParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -97,8 +97,8 @@ func HartSelect(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Select()
+	ser := &service.HartService{}
+	back, err := ser.Select(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)

@@ -18,7 +18,7 @@ func healthInit(groupgo *gin.RouterGroup) {
 // HealthCreate ...
 func HealthCreate(c *gin.Context) {
 
-	var param service.HealthCreate
+	var param service.HealthCreateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -26,8 +26,8 @@ func HealthCreate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Create()
+	ser := &service.HealthService{}
+	back, err := ser.Create(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -42,7 +42,7 @@ func HealthCreate(c *gin.Context) {
 // HealthDelete ...
 func HealthDelete(c *gin.Context) {
 
-	var param service.HealthDelete
+	var param service.HealthDeleteParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -50,8 +50,8 @@ func HealthDelete(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	err = param.Delete()
+	ser := &service.HealthService{}
+	err = ser.Delete(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -65,7 +65,7 @@ func HealthDelete(c *gin.Context) {
 // HealthUpdate ...
 func HealthUpdate(c *gin.Context) {
 
-	var param service.HealthUpdate
+	var param service.HealthUpdateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -73,8 +73,8 @@ func HealthUpdate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Update()
+	ser := &service.HealthService{}
+	back, err := ser.Update(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -89,7 +89,7 @@ func HealthUpdate(c *gin.Context) {
 // HealthSelect ...
 func HealthSelect(c *gin.Context) {
 
-	var param service.HealthSelect
+	var param service.HealthSelectParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -97,8 +97,8 @@ func HealthSelect(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Select()
+	ser := &service.HealthService{}
+	back, err := ser.Select(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)

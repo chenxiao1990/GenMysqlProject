@@ -20,7 +20,7 @@ func {{.StructNameLow}}Init(groupgo *gin.RouterGroup) {
 // {{.StructName}}Create ...
 func {{.StructName}}Create(c *gin.Context) {
 
-	var param service.{{.StructName}}Create
+	var param service.{{.StructName}}CreateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -28,8 +28,8 @@ func {{.StructName}}Create(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Create()
+	ser := &service.{{.StructName}}Service{}
+	back, err := ser.Create(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -44,7 +44,7 @@ func {{.StructName}}Create(c *gin.Context) {
 // {{.StructName}}Delete ...
 func {{.StructName}}Delete(c *gin.Context) {
 
-	var param service.{{.StructName}}Delete
+	var param service.{{.StructName}}DeleteParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -52,8 +52,8 @@ func {{.StructName}}Delete(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	err = param.Delete()
+	ser := &service.{{.StructName}}Service{}
+	err = ser.Delete(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -67,7 +67,7 @@ func {{.StructName}}Delete(c *gin.Context) {
 // {{.StructName}}Update ...
 func {{.StructName}}Update(c *gin.Context) {
 
-	var param service.{{.StructName}}Update
+	var param service.{{.StructName}}UpdateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -75,8 +75,8 @@ func {{.StructName}}Update(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Update()
+	ser := &service.{{.StructName}}Service{}
+	back, err := ser.Update(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -91,7 +91,7 @@ func {{.StructName}}Update(c *gin.Context) {
 // {{.StructName}}Select ...
 func {{.StructName}}Select(c *gin.Context) {
 
-	var param service.{{.StructName}}Select
+	var param service.{{.StructName}}SelectParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -99,8 +99,8 @@ func {{.StructName}}Select(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Select()
+	ser := &service.{{.StructName}}Service{}
+	back, err := ser.Select(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)

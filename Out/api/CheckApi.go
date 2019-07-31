@@ -18,7 +18,7 @@ func checkInit(groupgo *gin.RouterGroup) {
 // CheckCreate ...
 func CheckCreate(c *gin.Context) {
 
-	var param service.CheckCreate
+	var param service.CheckCreateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -26,8 +26,8 @@ func CheckCreate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Create()
+	ser := &service.CheckService{}
+	back, err := ser.Create(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -42,7 +42,7 @@ func CheckCreate(c *gin.Context) {
 // CheckDelete ...
 func CheckDelete(c *gin.Context) {
 
-	var param service.CheckDelete
+	var param service.CheckDeleteParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -50,8 +50,8 @@ func CheckDelete(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	err = param.Delete()
+	ser := &service.CheckService{}
+	err = ser.Delete(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -65,7 +65,7 @@ func CheckDelete(c *gin.Context) {
 // CheckUpdate ...
 func CheckUpdate(c *gin.Context) {
 
-	var param service.CheckUpdate
+	var param service.CheckUpdateParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -73,8 +73,8 @@ func CheckUpdate(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Update()
+	ser := &service.CheckService{}
+	back, err := ser.Update(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -89,7 +89,7 @@ func CheckUpdate(c *gin.Context) {
 // CheckSelect ...
 func CheckSelect(c *gin.Context) {
 
-	var param service.CheckSelect
+	var param service.CheckSelectParam
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -97,8 +97,8 @@ func CheckSelect(c *gin.Context) {
 		c.JSON(http.StatusOK, reply)
 		return
 	}
-
-	back, err := param.Select()
+	ser := &service.CheckService{}
+	back, err := ser.Select(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)

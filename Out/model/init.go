@@ -57,9 +57,5 @@ func AutoMigrate() {
 		log.Println("自动迁移错误:", er)
 	}
     
-	if er := DB.AutoMigrate(&User{}).Error; er != nil {
-		log.Println("自动迁移错误:", er)
-	}
-    
 }
 

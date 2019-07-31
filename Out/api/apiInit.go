@@ -25,7 +25,8 @@ func Cors() gin.HandlerFunc {
 	config.AllowCredentials = true
 	return cors.New(config)
 }
-func init(){
+// GinInit ...
+func GinInit(){
 	log.Println("启动 gin http服务 :", config.GConf.ServerPort)
 
 	if config.GConf.OutLog {
@@ -68,7 +69,6 @@ func initrouter(groupgo *gin.RouterGroup) {
 	checkInit(groupgo)
     hartInit(groupgo)
     healthInit(groupgo)
-    userInit(groupgo)
     
  
 }

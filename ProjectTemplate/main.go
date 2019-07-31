@@ -4,7 +4,7 @@ var MainTemplate = `
 package main
 
 import (
-	_ "{{.ProjectName}}/api"
+	"{{.ProjectName}}/api"
 	"{{.ProjectName}}/config"
 	_ "{{.ProjectName}}/dao"
 	"{{.ProjectName}}/model"
@@ -22,6 +22,8 @@ func main() {
 	configfile := GCurDir + "/config/config.json"
 	config.Loadconfig(configfile)
 
+	// 初始化路由
+	api.GinInit()
 	//连接数据库
 	model.LinkDB()
 
