@@ -4,7 +4,6 @@ var TableTemplate = `
 
 package model
 import (
-	"log"
 	"time"
 )
 
@@ -23,13 +22,5 @@ func ( {{.StructName}}) TableName() string {
 	return "{{.TableName}}"
 }
 
-
  
-// 自动迁移
-func init() {
-	if er := DB.AutoMigrate(&{{.StructName}}{}).Error; er != nil {
-		log.Println("自动迁移错误:", er)
-	}
-}
-
 `

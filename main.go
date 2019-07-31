@@ -91,7 +91,7 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 	// 搞model文件夹内的
 	var tables = make([]string, 0)
 	{
-		basestr(model.InitTemplate, todir+"/model/init.go", base)
+
 		// 获取所有数据库表
 		dbstr := *dbUser + ":" + *dbPass + "@tcp(" + *dbIPPort + ")/" + *dbName + "?charset=utf8"
 		var db, err = sql.Open("mysql", dbstr)
@@ -107,11 +107,17 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 			fmt.Println("Error in fetching tables information from mysql information schema", err)
 			return
 		}
-
+		automigrate := make([]string, 0)
 		// generate go files for each table
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
 			structName = inflection.Singular(structName)
+
+			autostr := `
+	if er := DB.AutoMigrate(&` + structName + `{}).Error; er != nil {
+		log.Println("自动迁移错误:", er)
+	}`
+			automigrate = append(automigrate, autostr)
 
 			modelInfo := GenerateStruct(db, tableName, structName, "model", true, true, true)
 
@@ -126,6 +132,18 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 			}
 			basestr(model.TableTemplate, todir+"/model/"+tableName+"Model.go", base)
 		}
+		// 搞一下 model下的init文件
+		{
+			var base = struct {
+				ProjectName string
+				AutoMigrate []string
+			}{
+				ProjectName: *outProjectName,
+				AutoMigrate: automigrate,
+			}
+			basestr(model.InitTemplate, todir+"/model/init.go", base)
+		}
+
 	}
 
 	// 搞service文件夹内的

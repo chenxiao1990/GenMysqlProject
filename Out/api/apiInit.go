@@ -65,7 +65,10 @@ func init(){
 // 加载各个router
 func initrouter(groupgo *gin.RouterGroup) {
 	baseInit(groupgo)
-	userInit(groupgo)
+	checkInit(groupgo)
+    hartInit(groupgo)
+    healthInit(groupgo)
+    userInit(groupgo)
     
  
 }

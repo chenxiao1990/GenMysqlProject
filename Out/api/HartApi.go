@@ -6,19 +6,19 @@ import (
 	"net/http"
 )
 
-func userInit(groupgo *gin.RouterGroup) {
+func hartInit(groupgo *gin.RouterGroup) {
 	 
-	// 所有api的开头 都加上/go  例如 /go/user/create
-	groupgo.POST("/user/create", UserCreate)
-	groupgo.POST("/user/delete", UserDelete)
-	groupgo.POST("/user/update", UserUpdate)
-	groupgo.POST("/user/select", UserSelect)
+	// 所有api的开头 都加上/go  例如 /go/hart/create
+	groupgo.POST("/hart/create", HartCreate)
+	groupgo.POST("/hart/delete", HartDelete)
+	groupgo.POST("/hart/update", HartUpdate)
+	groupgo.POST("/hart/select", HartSelect)
 }
 
-// UserCreate ...
-func UserCreate(c *gin.Context) {
+// HartCreate ...
+func HartCreate(c *gin.Context) {
 
-	var param service.UserCreate
+	var param service.HartCreate
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -39,10 +39,10 @@ func UserCreate(c *gin.Context) {
 	return
 }
 
-// UserDelete ...
-func UserDelete(c *gin.Context) {
+// HartDelete ...
+func HartDelete(c *gin.Context) {
 
-	var param service.UserDelete
+	var param service.HartDelete
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -62,10 +62,10 @@ func UserDelete(c *gin.Context) {
 	return
 }
 
-// UserUpdate ...
-func UserUpdate(c *gin.Context) {
+// HartUpdate ...
+func HartUpdate(c *gin.Context) {
 
-	var param service.UserUpdate
+	var param service.HartUpdate
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -86,10 +86,10 @@ func UserUpdate(c *gin.Context) {
 	return
 }
 
-// UserSelect ...
-func UserSelect(c *gin.Context) {
+// HartSelect ...
+func HartSelect(c *gin.Context) {
 
-	var param service.UserSelect
+	var param service.HartSelect
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {

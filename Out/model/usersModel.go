@@ -2,7 +2,6 @@
 
 package model
 import (
-	"log"
 	"time"
 )
 
@@ -12,7 +11,7 @@ var (
 )
 // User ...
 type User struct {
-    ID int `gorm:"column:id;type:int(11);primary_key;AUTO_INCREMENT;" json:"id"`
+    ID int `gorm:"column:id;type:int(11);primary_key;" json:"id"`
     UID int `gorm:"column:uid;type:int(11);" json:"uid"`
     Name string `gorm:"column:name;type:varchar(255);unique_index:idx_name_code;" json:"name"`
     Phone string `gorm:"column:phone;type:text;" json:"phone"`
@@ -26,12 +25,4 @@ func ( User) TableName() string {
 	return "users"
 }
 
-
  
-// 自动迁移
-func init() {
-	if er := DB.AutoMigrate(&User{}).Error; er != nil {
-		log.Println("自动迁移错误:", er)
-	}
-}
-

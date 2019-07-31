@@ -7,7 +7,7 @@ import (
 	_ "{{.ProjectName}}/api"
 	"{{.ProjectName}}/config"
 	_ "{{.ProjectName}}/dao"
-	_ "{{.ProjectName}}/model"
+	"{{.ProjectName}}/model"
 	_ "{{.ProjectName}}/service"
 	"log"
 	"os"
@@ -16,6 +16,14 @@ import (
 )
 
 func main() {
+
+	//加载配置文件
+	var GCurDir, _ = filepath.Abs(filepath.Dir(os.Args[0]))
+	configfile := GCurDir + "/config/config.json"
+	config.Loadconfig(configfile)
+
+	//连接数据库
+	model.LinkDB()
 
 	// 定义输出日志文件
 	log.SetFlags(log.LstdFlags | log.Lshortfile)

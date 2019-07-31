@@ -86,7 +86,11 @@ const (
 
 // GenerateStruct generates a struct for the given table.
 func GenerateStruct(db *sql.DB, tableName string, structName string, pkgName string, jsonAnnotation bool, gormAnnotation bool, gureguTypes bool) *ModelInfo {
-	cols, _ := schema.Table(db, tableName)
+	cols, err := schema.Table(db, "`"+tableName+"`")
+	if err != nil {
+		fmt.Println("查询表字段错误:", err)
+		return nil
+	}
 	fields := generateFieldsTypes(db, tableName, cols, 0, jsonAnnotation, gormAnnotation, gureguTypes)
 
 	//fields := generateMysqlTypes(db, columnTypes, 0, jsonAnnotation, gormAnnotation, gureguTypes)
@@ -105,9 +109,10 @@ func GenerateStruct(db *sql.DB, tableName string, structName string, pkgName str
 // Generate fields string
 func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType, depth int, jsonAnnotation bool, gormAnnotation bool, gureguTypes bool) []string {
 
-	rows, err := db.Query("show create table " + tableName)
+	rows, err := db.Query("show create table `" + tableName + "`")
 
 	if err != nil {
+		fmt.Println("获取创建表语句出错:", err)
 		return []string{}
 	}
 	defer rows.Close()
