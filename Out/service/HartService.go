@@ -24,7 +24,7 @@ type HartCreateBack struct {
 func ( *HartService) Create(p *HartCreateParam) (*HartCreateBack, error) {
 	dao := &dao.HartDao{}
 	 
-	data, err := dao.CreateHart(&p.Hart)
+	data, err := dao.Create(&p.Hart)
 
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ type HartDeleteBack struct {
 // Delete  ...
 func ( *HartService) Delete(p *HartDeleteParam) error {
 	dao := &dao.HartDao{}
-	return dao.DeleteHart(p.ID)
+	return dao.Delete(p.ID)
 }
 
 // HartSelectParam   参数 
@@ -65,7 +65,7 @@ type HartSelectBack struct {
 // Select ...
 func (*HartService) Select(p *HartSelectParam) (*HartSelectBack, error) {
 	dao := &dao.HartDao{}
-	data, err := dao.SelectHartByID(p.ID)
+	data, err := dao.SelectByID(p.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ type HartUpdateBack struct {
 // Update ...
 func (*HartService) Update(p *HartUpdateParam) (*HartUpdateBack, error) {
 	dao := &dao.HartDao{}
-	data, err := dao.UpdateHart(p.ID, p.Param)
+	data, err := dao.Update(p.ID, p.Param)
 	if err != nil {
 		return nil, err
 	}

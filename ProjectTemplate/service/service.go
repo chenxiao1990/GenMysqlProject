@@ -26,7 +26,7 @@ type {{.StructName}}CreateBack struct {
 func ( *{{.StructName}}Service) Create(p *{{.StructName}}CreateParam) (*{{.StructName}}CreateBack, error) {
 	dao := &dao.{{.StructName}}Dao{}
 	 
-	data, err := dao.Create{{.StructName}}(&p.{{.StructName}})
+	data, err := dao.Create(&p.{{.StructName}})
 
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ type {{.StructName}}DeleteBack struct {
 // Delete  ...
 func ( *{{.StructName}}Service) Delete(p *{{.StructName}}DeleteParam) error {
 	dao := &dao.{{.StructName}}Dao{}
-	return dao.Delete{{.StructName}}(p.ID)
+	return dao.Delete(p.ID)
 }
 
 // {{.StructName}}SelectParam   参数 
@@ -67,7 +67,7 @@ type {{.StructName}}SelectBack struct {
 // Select ...
 func (*{{.StructName}}Service) Select(p *{{.StructName}}SelectParam) (*{{.StructName}}SelectBack, error) {
 	dao := &dao.{{.StructName}}Dao{}
-	data, err := dao.Select{{.StructName}}ByID(p.ID)
+	data, err := dao.SelectByID(p.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +92,7 @@ type {{.StructName}}UpdateBack struct {
 // Update ...
 func (*{{.StructName}}Service) Update(p *{{.StructName}}UpdateParam) (*{{.StructName}}UpdateBack, error) {
 	dao := &dao.{{.StructName}}Dao{}
-	data, err := dao.Update{{.StructName}}(p.ID, p.Param)
+	data, err := dao.Update(p.ID, p.Param)
 	if err != nil {
 		return nil, err
 	}

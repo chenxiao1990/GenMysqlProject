@@ -10,8 +10,8 @@ import (
 type {{.StructName}}Dao struct {
 }
 
-// Create{{.StructName}} 增
-func (*{{.StructName}}Dao) Create{{.StructName}}(m *model.{{.StructName}}) (*model.{{.StructName}}, error) {
+// Create 增
+func (*{{.StructName}}Dao) Create(m *model.{{.StructName}}) (*model.{{.StructName}}, error) {
 	err := model.DB.Create(m).Error
 	if err != nil {
 		return nil, err
@@ -19,14 +19,14 @@ func (*{{.StructName}}Dao) Create{{.StructName}}(m *model.{{.StructName}}) (*mod
 	return m, nil
 }
 
-// Delete{{.StructName}} 删
-func (*{{.StructName}}Dao) Delete{{.StructName}}(id int) error {
+// Delete 删
+func (*{{.StructName}}Dao) Delete(id int) error {
 	err := model.DB.Delete(&model.{{.StructName}}{ID: id}).Error
 	return err
 }
 
-// Select{{.StructName}}ByID 查
-func (*{{.StructName}}Dao) Select{{.StructName}}ByID(id int) (*model.{{.StructName}}, error) {
+// SelectByID 查
+func (*{{.StructName}}Dao) SelectByID(id int) (*model.{{.StructName}}, error) {
 
 	var m model.{{.StructName}}
 	err := model.DB.Where("id = ?", id).Last(&m).Error
@@ -36,8 +36,8 @@ func (*{{.StructName}}Dao) Select{{.StructName}}ByID(id int) (*model.{{.StructNa
 	return &m, nil
 }
 
-// Update{{.StructName}} 改  map[string]interface{}{"name": "hello", "age": 18, "actived": false}
-func (*{{.StructName}}Dao) Update{{.StructName}}(id int, update map[string]interface{}) (*model.{{.StructName}}, error) {
+// Update 改  map[string]interface{}{"name": "hello", "age": 18, "actived": false}
+func (*{{.StructName}}Dao) Update(id int, update map[string]interface{}) (*model.{{.StructName}}, error) {
 
 	var m model.{{.StructName}}
 	err := model.DB.Model(&m).Where("id = ?", id).Updates(update).Error

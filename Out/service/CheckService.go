@@ -24,7 +24,7 @@ type CheckCreateBack struct {
 func ( *CheckService) Create(p *CheckCreateParam) (*CheckCreateBack, error) {
 	dao := &dao.CheckDao{}
 	 
-	data, err := dao.CreateCheck(&p.Check)
+	data, err := dao.Create(&p.Check)
 
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ type CheckDeleteBack struct {
 // Delete  ...
 func ( *CheckService) Delete(p *CheckDeleteParam) error {
 	dao := &dao.CheckDao{}
-	return dao.DeleteCheck(p.ID)
+	return dao.Delete(p.ID)
 }
 
 // CheckSelectParam   参数 
@@ -65,7 +65,7 @@ type CheckSelectBack struct {
 // Select ...
 func (*CheckService) Select(p *CheckSelectParam) (*CheckSelectBack, error) {
 	dao := &dao.CheckDao{}
-	data, err := dao.SelectCheckByID(p.ID)
+	data, err := dao.SelectByID(p.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ type CheckUpdateBack struct {
 // Update ...
 func (*CheckService) Update(p *CheckUpdateParam) (*CheckUpdateBack, error) {
 	dao := &dao.CheckDao{}
-	data, err := dao.UpdateCheck(p.ID, p.Param)
+	data, err := dao.Update(p.ID, p.Param)
 	if err != nil {
 		return nil, err
 	}

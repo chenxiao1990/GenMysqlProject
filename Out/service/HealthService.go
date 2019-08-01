@@ -24,7 +24,7 @@ type HealthCreateBack struct {
 func ( *HealthService) Create(p *HealthCreateParam) (*HealthCreateBack, error) {
 	dao := &dao.HealthDao{}
 	 
-	data, err := dao.CreateHealth(&p.Health)
+	data, err := dao.Create(&p.Health)
 
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ type HealthDeleteBack struct {
 // Delete  ...
 func ( *HealthService) Delete(p *HealthDeleteParam) error {
 	dao := &dao.HealthDao{}
-	return dao.DeleteHealth(p.ID)
+	return dao.Delete(p.ID)
 }
 
 // HealthSelectParam   参数 
@@ -65,7 +65,7 @@ type HealthSelectBack struct {
 // Select ...
 func (*HealthService) Select(p *HealthSelectParam) (*HealthSelectBack, error) {
 	dao := &dao.HealthDao{}
-	data, err := dao.SelectHealthByID(p.ID)
+	data, err := dao.SelectByID(p.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ type HealthUpdateBack struct {
 // Update ...
 func (*HealthService) Update(p *HealthUpdateParam) (*HealthUpdateBack, error) {
 	dao := &dao.HealthDao{}
-	data, err := dao.UpdateHealth(p.ID, p.Param)
+	data, err := dao.Update(p.ID, p.Param)
 	if err != nil {
 		return nil, err
 	}

@@ -8,8 +8,8 @@ import (
 type CheckDao struct {
 }
 
-// CreateCheck 增
-func (*CheckDao) CreateCheck(m *model.Check) (*model.Check, error) {
+// Create 增
+func (*CheckDao) Create(m *model.Check) (*model.Check, error) {
 	err := model.DB.Create(m).Error
 	if err != nil {
 		return nil, err
@@ -17,14 +17,14 @@ func (*CheckDao) CreateCheck(m *model.Check) (*model.Check, error) {
 	return m, nil
 }
 
-// DeleteCheck 删
-func (*CheckDao) DeleteCheck(id int) error {
+// Delete 删
+func (*CheckDao) Delete(id int) error {
 	err := model.DB.Delete(&model.Check{ID: id}).Error
 	return err
 }
 
-// SelectCheckByID 查
-func (*CheckDao) SelectCheckByID(id int) (*model.Check, error) {
+// SelectByID 查
+func (*CheckDao) SelectByID(id int) (*model.Check, error) {
 
 	var m model.Check
 	err := model.DB.Where("id = ?", id).Last(&m).Error
@@ -34,8 +34,8 @@ func (*CheckDao) SelectCheckByID(id int) (*model.Check, error) {
 	return &m, nil
 }
 
-// UpdateCheck 改  map[string]interface{}{"name": "hello", "age": 18, "actived": false}
-func (*CheckDao) UpdateCheck(id int, update map[string]interface{}) (*model.Check, error) {
+// Update 改  map[string]interface{}{"name": "hello", "age": 18, "actived": false}
+func (*CheckDao) Update(id int, update map[string]interface{}) (*model.Check, error) {
 
 	var m model.Check
 	err := model.DB.Model(&m).Where("id = ?", id).Updates(update).Error
