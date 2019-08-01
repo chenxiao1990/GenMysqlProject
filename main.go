@@ -13,7 +13,6 @@ import (
 	"github.com/droundy/goopt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jimsmart/schema"
-	"github.com/jinzhu/inflection"
 	"os"
 	"path/filepath"
 	"strings"
@@ -47,6 +46,7 @@ type Base struct {
 }
 
 func main() {
+
 	os.Mkdir(*outProjectName, 0777)
 	os.Mkdir(*outProjectName+"/api", 0777)
 	os.Mkdir(*outProjectName+"/config", 0777)
@@ -111,7 +111,9 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 		// generate go files for each table
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
-			structName = inflection.Singular(structName)
+			if structName[len(structName)-1] == 's' {
+				structName = structName[0 : len(structName)-1]
+			}
 
 			autostr := `
 	if er := DB.AutoMigrate(&` + structName + `{}).Error; er != nil {
@@ -158,7 +160,9 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 		// generate go files for each table
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
-			structName = inflection.Singular(structName)
+			if structName[len(structName)-1] == 's' {
+				structName = structName[0 : len(structName)-1]
+			}
 
 			modelInfo := GenerateStruct(db, tableName, structName, "model", true, false, true)
 
@@ -189,7 +193,9 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 		// generate go files for each table
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
-			structName = inflection.Singular(structName)
+			if structName[len(structName)-1] == 's' {
+				structName = structName[0 : len(structName)-1]
+			}
 
 			var base = struct {
 				ProjectName string
@@ -218,7 +224,9 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 		var initfuncs = make([]string, 0)
 		for _, tableName := range tables {
 			structName := FmtFieldName(tableName)
-			structName = inflection.Singular(structName)
+			if structName[len(structName)-1] == 's' {
+				structName = structName[0 : len(structName)-1]
+			}
 
 			var base = struct {
 				ProjectName   string
