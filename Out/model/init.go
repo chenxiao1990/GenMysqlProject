@@ -28,7 +28,7 @@ func LinkDB() {
 }
 func link() (bool, *gorm.DB) {
 	var err error
-	dbstr := config.GConf.Dbuser + ":" + config.GConf.Dbpass + "@tcp(" + config.GConf.Dbipport + ")/" + config.GConf.Dbname + "?charset=utf8"
+	dbstr := config.GConf.Dbuser + ":" + config.GConf.Dbpass + "@tcp(" + config.GConf.Dbipport + ")/" + config.GConf.Dbname + "?charset=utf8&parseTime=true"
 	tmpDB, err := gorm.Open("mysql", dbstr)
 	if err != nil {
 		return false, nil
