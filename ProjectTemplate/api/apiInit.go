@@ -45,7 +45,7 @@ func GinInit(){
 
 	gin.SetMode(gin.ReleaseMode)
 
-	GRouter := gin.Default()
+	GRouter = gin.Default()
 	ginpprof.Wrapper(GRouter)
 	 
 	groupgo := GRouter.Group("/go")
