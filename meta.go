@@ -179,8 +179,11 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 			}
 			gormstr := fmt.Sprintf("gorm:\"column:%s", key)
 			// 数据库类型
-			if sqltype != "" && zizeng == false {
+			if sqltype != "" {
 				gormstr += ";type:" + sqltype
+				if zizeng {
+					gormstr += " AUTO_INCREMENT"
+				}
 			}
 			//
 			if zhujian {
@@ -189,9 +192,7 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 			if suoyin != "" {
 				gormstr += fmt.Sprintf(";%s", suoyin)
 			}
-			if zizeng {
-				gormstr += ";AUTO_INCREMENT"
-			}
+
 			gormstr += ";\""
 			annotations = append(annotations, gormstr)
 
