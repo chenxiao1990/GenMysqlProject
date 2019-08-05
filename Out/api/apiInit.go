@@ -1,5 +1,5 @@
-package api
 
+package api
 import (
 	"Out/config"
 	"fmt"
@@ -13,8 +13,8 @@ import (
 )
 
 // GRouter 全局Router 全局调用的函数会在模块的init()之前执行
-var GRouter *gin.Engine
-
+var GRouter *gin.Engine  
+ 
 // Cors 跨域配置
 func Cors() gin.HandlerFunc {
 	config := cors.DefaultConfig()
@@ -25,9 +25,8 @@ func Cors() gin.HandlerFunc {
 	config.AllowCredentials = true
 	return cors.New(config)
 }
-
 // GinInit ...
-func GinInit() {
+func GinInit(){
 	log.Println("启动 gin http服务 :", config.GConf.ServerPort)
 
 	if config.GConf.OutLog {
@@ -46,7 +45,7 @@ func GinInit() {
 
 	GRouter = gin.Default()
 	ginpprof.Wrapper(GRouter)
-
+	 
 	groupgo := GRouter.Group("/go")
 	// 使用跨域中间件允许跨域
 	groupgo.Use(Cors())
@@ -54,20 +53,22 @@ func GinInit() {
 	// 加载各个router
 	initrouter(groupgo)
 
+	
 	//启动服务
 	go func() {
 		if err := GRouter.Run(fmt.Sprintf(":%d", config.GConf.ServerPort)); err != nil {
 			log.Println(err.Error())
 		}
 	}()
-
+	 
 }
 
 // 加载各个router
 func initrouter(groupgo *gin.RouterGroup) {
 	baseInit(groupgo)
 	checkInit(groupgo)
-	hartInit(groupgo)
-	healthInit(groupgo)
-
+    hartInit(groupgo)
+    healthInit(groupgo)
+    
+ 
 }

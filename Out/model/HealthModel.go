@@ -11,7 +11,7 @@ var (
 )
 // Health ...
 type Health struct {
-    ID int `gorm:"column:id;type:int(10);primary_key;AUTO_INCREMENT;" json:"id"`
+    ID int `gorm:"column:id;primary_key;AUTO_INCREMENT;" json:"id"`
     UID int `gorm:"column:uid;type:int(11);index:indexUid;" json:"uid"`
     HealStep int `gorm:"column:heal_step;type:int(11);" json:"heal_step"`
     Power int `gorm:"column:power;type:int(11);" json:"power"`

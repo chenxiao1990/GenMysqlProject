@@ -11,7 +11,7 @@ var (
 )
 // Hart ...
 type Hart struct {
-    ID int `gorm:"column:id;type:int(11);primary_key;AUTO_INCREMENT;" json:"id"`
+    ID int `gorm:"column:id;primary_key;AUTO_INCREMENT;" json:"id"`
     HealHr int `gorm:"column:heal_hr;type:int(11);" json:"heal_hr"`
     Created int `gorm:"column:created;type:int(11);index:indexCreated;" json:"created"`
     Updated int `gorm:"column:updated;type:int(11);" json:"updated"`

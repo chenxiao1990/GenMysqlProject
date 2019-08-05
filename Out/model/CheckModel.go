@@ -11,7 +11,7 @@ var (
 )
 // Check ...
 type Check struct {
-    ID int `gorm:"column:id;type:int(11);primary_key;AUTO_INCREMENT;" json:"id"`
+    ID int `gorm:"column:id;primary_key;AUTO_INCREMENT;" json:"id"`
     UID int `gorm:"column:uid;type:int(11);index:indexUid;" json:"uid"`
     AreaID string `gorm:"column:area_id;type:varchar(20);" json:"area_id"`
     GradeID int `gorm:"column:grade_id;type:int(11);index:indexGid;" json:"grade_id"`

@@ -171,7 +171,7 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 				if len(words) >= 4 && words[0] == "UNIQUE" && words[1] == "KEY" && words[3] == "(`"+key+"`)" {
 					suoyin = "unique_index:" + words[2][1:len(words[2])-1]
 				}
-				//判断是不是自增
+				//判断是不是自增  自增不能使用type指定类型 不然自动迁移自增无效
 				if words[0] == "`"+key+"`" && words[len(words)-1] == "AUTO_INCREMENT" {
 					zizeng = true
 				}
@@ -179,7 +179,7 @@ func generateFieldsTypes(db *sql.DB, tableName string, columns []*sql.ColumnType
 			}
 			gormstr := fmt.Sprintf("gorm:\"column:%s", key)
 			// 数据库类型
-			if sqltype != "" {
+			if sqltype != "" && zizeng == false {
 				gormstr += ";type:" + sqltype
 			}
 			//
