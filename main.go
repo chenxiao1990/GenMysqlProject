@@ -4,6 +4,11 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
+	"text/template"
+
 	"gitee.com/290746987/GenMysqlProject/ProjectTemplate"
 	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/api"
 	"gitee.com/290746987/GenMysqlProject/ProjectTemplate/config"
@@ -13,10 +18,6 @@ import (
 	"github.com/droundy/goopt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jimsmart/schema"
-	"os"
-	"path/filepath"
-	"strings"
-	"text/template"
 )
 
 var (
@@ -64,15 +65,7 @@ func main() {
 
 	// main文件
 	basestr(ProjectTemplate.MainTemplate, todir+"/main.go", base)
-	// dockerfile
-	basestr(
-		`# 使用docker打包
-FROM alpine
-COPY ./{{.ProjectName}} /usr/bin/{{.ProjectName}}
-COPY ./config/config.json /usr/bin/config/config.json
-ENTRYPOINT ["{{.ProjectName}}"]`,
-		todir+"/Dockerfile",
-		base)
+
 	// config
 	copytofile(config.Configstr, todir+"/config/config.go")
 	config.GConf.ServerPort = 80
@@ -93,7 +86,7 @@ ENTRYPOINT ["{{.ProjectName}}"]`,
 	{
 
 		// 获取所有数据库表
-		dbstr := *dbUser + ":" + *dbPass + "@tcp(" + *dbIPPort + ")/" + *dbName + "?charset=utf8"
+		dbstr := *dbUser + ":" + *dbPass + "@tcp(" + *dbIPPort + ")/" + *dbName + "?charset=utf8&parseTime=true&loc=Local"
 		var db, err = sql.Open("mysql", dbstr)
 		if err != nil {
 			fmt.Println("Error in open database: " + err.Error())
