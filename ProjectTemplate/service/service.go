@@ -40,24 +40,14 @@ func ( *{{.StructName}}Service) Create(p *{{.StructName}}CreateParam) (*{{.Struc
 	return &back, nil
 }
 
-// {{.StructName}}DeleteParam   参数  
-type {{.StructName}}DeleteParam struct {
-	ID int "json:\"id\" binding:\"required\""
-}
-// {{.StructName}}DeleteBack  返回参数
-type {{.StructName}}DeleteBack struct {
-	 
-}
+ 
 // Delete  ...
-func ( *{{.StructName}}Service) Delete(p *{{.StructName}}DeleteParam) error {
+func ( *{{.StructName}}Service) Delete(id int) error {
 	dao := &dao.{{.StructName}}Dao{}
-	return dao.Delete(p.ID)
+	return dao.Delete(id)
 }
 
-// {{.StructName}}SelectParam   参数 
-type {{.StructName}}SelectParam struct {
-	ID int "json:\"id\" binding:\"required\""
-}
+ 
 
 // {{.StructName}}SelectBack  返回参数
 type {{.StructName}}SelectBack struct {
@@ -65,9 +55,9 @@ type {{.StructName}}SelectBack struct {
 }
 
 // Select ...
-func (*{{.StructName}}Service) Select(p *{{.StructName}}SelectParam) (*{{.StructName}}SelectBack, error) {
+func (*{{.StructName}}Service) Select(id int) (*{{.StructName}}SelectBack, error) {
 	dao := &dao.{{.StructName}}Dao{}
-	data, err := dao.SelectByID(p.ID)
+	data, err := dao.SelectByID(id)
 	if err != nil {
 		return nil, err
 	}

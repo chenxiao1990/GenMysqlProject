@@ -1,3 +1,5 @@
+
+
 # GenMysqlProject
 
 #### 介绍
@@ -8,56 +10,31 @@ api使用gin框架提供对外http接口
 mysql数据库访问使用gorm框架
 
 
+
 #### 安装教程
 
  
 + 第一种方法：go get 直接安装
 
 ```
-go get -u gitee.com/290746987/GenMysqlProject
+go get -u github.com/chenxiao1990/GenMysqlProject
 ```
 
 + 第二种方法：下载源码编译
 
 ```
-git clone git@gitee.com:290746987/GenMysqlProject.git
+git clone git@github.com:chenxiao1990/GenMysqlProject.git
 ```
 
  
 #### 使用说明
 
-+ 使用 GenMysqlProject -h 获取说明
-+ 命令 GenMysqlProject --ipport "192.168.0.86:3306" --dbname "cx" --user "root" --pass "12345678" --outname "myproject" 
+编译成可执行程序后直接运行，然后浏览器打开 http://localhost:8008/vue
 
-
-
-#### 软件架构
-
-+ config
-
-配置相关的信息在config.json中，项目运行时config.json放在同目录下./config/config.json
-
-+ api
-
-对外提供http接口服务
-api解析service层需要的参数，调用service服务
-
-+ service
-
-对api层提供服务
-定义服务的参数struct，返回struct
-service可以调用dao层的接口对数据库进行操作，但是不可以直接调用操作数据库
-多数情况service层是直接调用一个dao层进行返回，也可以进行多个表数据之间的计算整合等操作。
-
-+ dao
-
-对service层提供数据库操作接口
-可以提供基础的增删改查，如果联合查询，那么接口应该定义在主表的dao文件中
-
-+ model
-
-数据库表结构
-提供gorm的自动创建表功能
++ 生成工程    
+  输入工程名，点击生成，会在运行目录下生成工程
++ 生成查询代码  
+  进行一些点击操作生成查询数据库的代码
 
 
 #### 注意事项
@@ -67,3 +44,21 @@ service可以调用dao层的接口对数据库进行操作，但是不可以直�
 + 主流的字段格式已解析，可能会有漏掉的，后边会根据反馈进行修改
 
  
+
+# web端工程的 静态资源打包 go-bindata工具
+
+```
+本工程中已打包，所以你不想做更改的话 可以不用管这个
+
+go-bindata -fs -prefix "webui/dist/" webui/dist/...
+
+-fs 表示生成 func AssetFile() http.FileSystem
+
+-prefix  去掉生成包的访问前缀 webui/dist
+
+成功生成bindata.go文件 里面就是一堆静态文件的字符串
+GRouter = gin.Default()
+GRouter.StaticFS("/vue", AssetFile())
+这样 gin就添加了 dist里的静态文件访问  
+例如 webui/dist/css/app.xxx.css 访问路径为 http://ip:port/vue/css/app.xxx.css
+```

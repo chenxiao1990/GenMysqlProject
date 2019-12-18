@@ -1,4 +1,4 @@
-module gitee.com/290746987/GenMysqlProject
+module github.com/chenxiao1990/GenMysqlProject
 
 go 1.12
 

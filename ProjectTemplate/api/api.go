@@ -22,7 +22,7 @@ func {{.StructName}}Create(c *gin.Context) {
 
 	var param service.{{.StructName}}CreateParam
 	//解析参数
-	err := c.ShouldBindJSON(&param)
+	err := c.ShouldBind(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -44,16 +44,18 @@ func {{.StructName}}Create(c *gin.Context) {
 // {{.StructName}}Delete ...
 func {{.StructName}}Delete(c *gin.Context) {
 
-	var param service.{{.StructName}}DeleteParam
+	var param struct {
+		ID int "json:\"id\" form:\"id\""
+	}
 	//解析参数
-	err := c.ShouldBindJSON(&param)
+	err := c.ShouldBind(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
 		return
 	}
 	ser := &service.{{.StructName}}Service{}
-	err = ser.Delete(&param)
+	err = ser.Delete(param.ID)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -69,7 +71,7 @@ func {{.StructName}}Update(c *gin.Context) {
 
 	var param service.{{.StructName}}UpdateParam
 	//解析参数
-	err := c.ShouldBindJSON(&param)
+	err := c.ShouldBind(&param)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)
@@ -91,7 +93,9 @@ func {{.StructName}}Update(c *gin.Context) {
 // {{.StructName}}Select ...
 func {{.StructName}}Select(c *gin.Context) {
 
-	var param service.{{.StructName}}SelectParam
+	var param struct {
+		ID int "json:\"id\" form:\"id\""
+	}
 	//解析参数
 	err := c.ShouldBindJSON(&param)
 	if err != nil {
@@ -100,7 +104,7 @@ func {{.StructName}}Select(c *gin.Context) {
 		return
 	}
 	ser := &service.{{.StructName}}Service{}
-	back, err := ser.Select(&param)
+	back, err := ser.Select(param.ID)
 	if err != nil {
 		reply := NewReplyError(err.Error())
 		c.JSON(http.StatusOK, reply)

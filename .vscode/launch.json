@@ -9,11 +9,9 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}",
+            "program": "E:\\gowork\\worksrc\\GenMysqlProject",
             "env": {},
-            "args": [  "--ipport",  "192.168.0.86:3306" , "--dbname", "cx" ,
-                "--user", "root" , "--pass",
-                "19771010", "--outname" ,"Out"]
+            "args": [ ]
         }
     ]
 }
