@@ -424,7 +424,7 @@ export default {
           });
           structstr += "}";
           let mml = {
-            key: node.TableName,
+            key: "T" + node.TableName,
             type: structstr,
             tag: `\"json:\\\"` + node.TableName + `\\\"\"`
           };
@@ -698,7 +698,7 @@ export default {
         handlestruct += `} \n`;
       } else {
         handlestruct += "\nout := make([]" + outstructname + ",0) \n";
-        handlestruct += "============== \n 自己写整合吧 \n=============== \n";
+        handlestruct += "//============== \n //  自己写整合吧 \n //=============== \n";
       }
 
       all += handlestruct;
