@@ -1,30 +1,37 @@
 <template>
   <div class="home">
-    <div style="margin:20px;">
-      <span>版本:{{version}}</span>
+    <div style="width:70%;float:left;">
+      <div style="margin:20px;">
+        <span>版本:{{version}}</span>
 
+      </div>
+
+      <el-form style="width:400px;margin: auto;" label-position="left" label-width="100px">
+        <el-form-item label="数据库地址">
+          <el-input v-model="dbIPPort" placeholder="192.168.0.24:3306"></el-input>
+        </el-form-item>
+        <el-form-item label="数据库名">
+          <el-input v-model="dbName" placeholder="xzy2"></el-input>
+        </el-form-item>
+        <el-form-item label="数据库用户">
+          <el-input v-model="dbUser" placeholder="root"></el-input>
+        </el-form-item>
+        <el-form-item label="数据库密码">
+          <el-input v-model="dbPass" placeholder="12345678"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <div style="margin:20px;">
+        <el-button @click="genselectcode" type="primary">查询代码生成</el-button>
+      </div>
+      <div style="margin:20px;">
+        <el-button @click="genproject" type="success">生成工程</el-button>
+      </div>
     </div>
-
-    <el-form style="width:400px;margin: auto;" label-position="left" label-width="100px">
-      <el-form-item label="数据库地址">
-        <el-input v-model="dbIPPort" placeholder="192.168.0.24:3306"></el-input>
-      </el-form-item>
-      <el-form-item label="数据库名">
-        <el-input v-model="dbName" placeholder="xzy2"></el-input>
-      </el-form-item>
-      <el-form-item label="数据库用户">
-        <el-input v-model="dbUser" placeholder="root"></el-input>
-      </el-form-item>
-      <el-form-item label="数据库密码">
-        <el-input v-model="dbPass" placeholder="12345678"></el-input>
-      </el-form-item>
-    </el-form>
-
-    <div style="margin:20px;">
-      <el-button @click="genselectcode" type="primary">查询代码生成</el-button>
-    </div>
-    <div style="margin:20px;">
-      <el-button @click="genproject" type="success">生成工程</el-button>
+    <div style="width:29%;float:left;">
+      <div style="margin:20px;">
+        <el-button @click="jsontogo" type="primary">json转go结构体</el-button>
+      </div>
     </div>
 
     <el-dialog title="自动生成工程" :visible.sync="dialogVisible" width="50%">
@@ -103,6 +110,9 @@ export default {
             this.$message.error(res.data.message);
           }
         });
+    },
+    jsontogo() {
+       this.$router.push("/jsontogo");
     }
   }
 };
