@@ -1,6 +1,6 @@
 # ui
 
-![Image1](https://raw.githubusercontent.com/chenxiao1990/GenMysqlProject/master/images/1.png)
+![Image1](https://raw.githubusercontent.com/chenxiao1990/GenMysqlProject/master/images/4.png)
 
 ![Image2](https://raw.githubusercontent.com/chenxiao1990/GenMysqlProject/master/images/2.png)
 
