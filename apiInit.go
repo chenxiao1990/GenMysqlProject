@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"go/format"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -125,8 +126,24 @@ func initrouter(groupgo *gin.RouterGroup) {
 
 	groupgo.GET("/tables", tables)
 
+	groupgo.POST("/format", codeformat)
 }
 
+func codeformat(c *gin.Context) {
+	var param struct {
+		Code string `json:"code" binding:"required"`
+	}
+	err := c.ShouldBind(&param)
+	if err != nil {
+		reply := NewReplyError(err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+	bb, err := format.Source([]byte(param.Code))
+	reply := NewReplyOk()
+	reply.Data = string(bb)
+	c.JSON(http.StatusOK, reply)
+}
 func tables(c *gin.Context) {
 	// 获取所有数据库表
 	dbstr := dbUser + ":" + dbPass + "@tcp(" + dbIPPort + ")/" + dbName + "?charset=utf8&parseTime=true&loc=Local"

@@ -306,9 +306,9 @@ export default {
           break;
         }
       }
-      if (this.tiaojiantmp == "升序") {
+      if (this.tiaojiantmp == "降序") {
         this.tiaojianSelect.push('Order("' + tiaojiankey + ' desc").\n');
-      } else if (this.tiaojiantmp == "降序") {
+      } else if (this.tiaojiantmp == "升序") {
         this.tiaojianSelect.push('Order("' + tiaojiankey + ' asc").\n');
       } else if (this.tiaojiantmp == "pageNum") {
         let comt = "Offset((pageNum - 1)*pageSize).\n";
@@ -698,7 +698,8 @@ export default {
         handlestruct += `} \n`;
       } else {
         handlestruct += "\nout := make([]" + outstructname + ",0) \n";
-        handlestruct += "//============== \n //  自己写整合吧 \n //=============== \n";
+        handlestruct +=
+          "//============== \n //  自己写整合吧 \n //=============== \n";
       }
 
       all += handlestruct;
@@ -798,6 +799,34 @@ back, err := ser.` +
 
       this.apicode = tmpapicode;
       this.codedialog = true;
+
+      this.$axios
+        .post("/cx/format", {
+          code: this.daocode
+        })
+        .then(res => {
+          if (res.data.code == 1) {
+            this.daocode = res.data.data;
+          }
+        });
+      this.$axios
+        .post("/cx/format", {
+          code: this.servicecode
+        })
+        .then(res => {
+          if (res.data.code == 1) {
+            this.servicecode = res.data.data;
+          }
+        });
+      this.$axios
+        .post("/cx/format", {
+          code: this.apicode
+        })
+        .then(res => {
+          if (res.data.code == 1) {
+            this.apicode = res.data.data;
+          }
+        });
     }
   }
 };
