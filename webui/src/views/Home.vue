@@ -21,6 +21,9 @@
         </el-form-item>
       </el-form>
 
+ <div style="margin:20px;">
+        <el-button @click="gentable" type="primary">表生成struct</el-button>
+      </div>
       <div style="margin:20px;">
         <el-button @click="genselectcode" type="primary">查询代码生成</el-button>
       </div>
@@ -74,6 +77,22 @@ export default {
     });
   },
   methods: {
+    gentable() {
+      this.$axios
+        .post("/cx/setdbinfo", {
+          dbIPPort: this.dbIPPort,
+          dbName: this.dbName,
+          dbUser: this.dbUser,
+          dbPass: this.dbPass
+        })
+        .then(res => {
+          if (res.data.code == 1) {
+            this.$router.push("/gentablestruct");
+          } else {
+            this.$message.error(res.data.message);
+          }
+        });
+    },
     genproject() {
       this.dialogVisible = true;
     },

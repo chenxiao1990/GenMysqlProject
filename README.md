@@ -9,6 +9,11 @@
 # GenMysqlProject
 
 #### 介绍
+json 转 go struct
+mysql 数据库表 转 go struct
+
+生成mysql数据表的 gorm查询go代码
+
 通过mysql数据表初始化各个表的curd功能，包含api、service、dao、model模块 。 
 
 api使用gin框架提供对外http接口

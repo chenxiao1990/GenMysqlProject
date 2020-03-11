@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"database/sql"
 	"encoding/json"
 	"fmt"
@@ -10,8 +11,10 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"text/template"
 	"unsafe"
 
+	"github.com/chenxiao1990/GenMysqlProject/ProjectTemplate/model"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jimsmart/schema"
@@ -115,11 +118,12 @@ func initrouter(groupgo *gin.RouterGroup) {
 
 	groupgo.GET("/version", func(c *gin.Context) {
 		reply := NewReplyOk()
-		reply.Data = "0.0.2"
+		reply.Data = "1.1.1"
 		c.JSON(http.StatusOK, reply)
 	})
 
 	groupgo.POST("/genproject", genproject)
+	groupgo.POST("/gentablestruct", gentablestruct)
 
 	groupgo.GET("/dbinfo", dbinfo)
 	groupgo.POST("/setdbinfo", setdbinfo)
@@ -241,7 +245,63 @@ func dbinfo(c *gin.Context) {
 	reply.Data = param
 	c.JSON(http.StatusOK, reply)
 }
+func gentablestruct(c *gin.Context) {
+	type Param struct {
+		StructName string
+		TableName  string
+	}
+	var param Param
+	err := c.ShouldBindJSON(&param)
+	if err != nil {
+		reply := NewReplyError(err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+	// 获取所有数据库表
+	dbstr := dbUser + ":" + dbPass + "@tcp(" + dbIPPort + ")/" + dbName + "?charset=utf8&parseTime=true&loc=Local"
+	db, err := sql.Open("mysql", dbstr)
+	if err != nil {
 
+		reply := NewReplyError("Error in open database: " + err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+	defer db.Close()
+	modelInfo := GenerateStruct(db, param.TableName, param.StructName, "model", true, true, true)
+	var base = struct {
+		StructName string
+		TableName  string
+		Fields     []string
+	}{
+		StructName: param.StructName,
+		TableName:  param.TableName,
+		Fields:     modelInfo.Fields,
+	}
+	tmpl, err := template.New("base").Parse(model.TableTemplate) //建立一个模板
+	if err != nil {
+		reply := NewReplyError(err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+
+	out := bytes.NewBuffer([]byte{})
+	err = tmpl.Execute(out, base)
+	if err != nil {
+		reply := NewReplyError(err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+	bb, err := format.Source(out.Bytes())
+	if err != nil {
+		reply := NewReplyError(err.Error())
+		c.JSON(http.StatusOK, reply)
+		return
+	}
+	reply := NewReplyOk()
+	reply.Data = string(bb)
+	c.JSON(http.StatusOK, reply)
+
+}
 func genproject(c *gin.Context) {
 	var param struct {
 		DbIPPort       string `json:"dbIPPort" binding:"required"`
