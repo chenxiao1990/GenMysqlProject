@@ -24,17 +24,13 @@ mysql数据库访问使用gorm框架
 
 #### 安装教程
 
- 
-+ 第一种方法：go get 直接安装
-
-```
-go get -u github.com/chenxiao1990/GenMysqlProject
-```
-
-+ 第二种方法：下载源码编译
++ 下载源码编译
 
 ```
 git clone git@github.com:chenxiao1990/GenMysqlProject.git
+cd GenMysqlProject
+go build 
+./GenMysqlProject
 ```
 
  
