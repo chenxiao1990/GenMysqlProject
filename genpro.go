@@ -70,7 +70,7 @@ func GenProject() {
 		modf, _ := os.OpenFile(todir+"/go.mod", os.O_WRONLY|os.O_CREATE|os.O_SYNC, 0755)
 		modf.Write([]byte(`module ` + outProjectName + `
 
-go 1.12`))
+go 1.14`))
 		modf.Close()
 	}
 
