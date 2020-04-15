@@ -23,7 +23,12 @@ mysql数据库访问使用gorm框架
 
 
 #### 安装教程
++ go get
+```
+go get -u -v github.com/chenxiao1990/GenMysqlProject
 
+(go get 最好在go.mod的工程下使用， 好走配置的proxy加速， 不然就得科学上网了)
+```
 + 下载源码编译
 
 ```
