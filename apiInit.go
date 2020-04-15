@@ -118,7 +118,7 @@ func initrouter(groupgo *gin.RouterGroup) {
 
 	groupgo.GET("/version", func(c *gin.Context) {
 		reply := NewReplyOk()
-		reply.Data = "1.2.1"
+		reply.Data = "1.2.2"
 		c.JSON(http.StatusOK, reply)
 	})
 
@@ -171,7 +171,7 @@ func tables(c *gin.Context) {
 		if structName[len(structName)-1] == 's' {
 			structName = structName[0 : len(structName)-1]
 		}
-		cols, _ := schema.Table(db, "`"+tableName+"`")
+		cols, _ := schema.Table(db, tableName)
 
 		type Filed struct {
 			Name string

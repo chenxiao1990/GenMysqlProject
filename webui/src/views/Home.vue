@@ -20,8 +20,10 @@
           <el-input v-model="dbPass" placeholder="12345678"></el-input>
         </el-form-item>
       </el-form>
-
- <div style="margin:20px;">
+      <div style="margin:20px;">
+        <el-button @click="jsontogo" type="primary">json转go结构体</el-button>
+      </div>
+      <div style="margin:20px;">
         <el-button @click="gentable" type="primary">表生成struct</el-button>
       </div>
       <div style="margin:20px;">
@@ -29,11 +31,6 @@
       </div>
       <div style="margin:20px;">
         <el-button @click="genproject" type="success">生成工程</el-button>
-      </div>
-    </div>
-    <div style="width:29%;float:left;">
-      <div style="margin:20px;">
-        <el-button @click="jsontogo" type="primary">json转go结构体</el-button>
       </div>
     </div>
 
@@ -131,7 +128,7 @@ export default {
         });
     },
     jsontogo() {
-       this.$router.push("/jsontogo");
+      this.$router.push("/jsontogo");
     }
   }
 };
