@@ -118,7 +118,7 @@ func initrouter(groupgo *gin.RouterGroup) {
 
 	groupgo.GET("/version", func(c *gin.Context) {
 		reply := NewReplyOk()
-		reply.Data = "1.1.1"
+		reply.Data = "1.2.1"
 		c.JSON(http.StatusOK, reply)
 	})
 
